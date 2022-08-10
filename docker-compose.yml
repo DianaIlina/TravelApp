@@ -11,3 +11,5 @@ services:
       MYSQL_DATABASE: app
       MYSQL_USER: app
       MYSQL_PASSWORD: pass
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
