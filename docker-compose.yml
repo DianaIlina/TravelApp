@@ -1,7 +1,8 @@
 version: '3.7'
 services:
   mysql:
-    image: mysql:8.0.18
+    platform: linux/x86_64
+    image: mysql:latest
     ports:
       - '3306:3306'
     volumes:
