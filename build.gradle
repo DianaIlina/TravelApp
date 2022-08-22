@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.9.6'
 }
 
 group 'ru.netology'
@@ -9,6 +10,13 @@ sourceCompatibility ='11'
 
 compileJava.options.encoding='UTF-8'
 compileTestJava.options.encoding='UTF-8'
+
+allure {
+    version '2.16.1'
+    useJUnit5 {
+        version '2.16.1'
+    }
+}
 
 repositories {
     mavenCentral()
@@ -21,11 +29,14 @@ dependencies {
     implementation group: 'com.codeborne', name: 'selenide', version: '6.1.1'
     implementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
 
-
     implementation 'org.projectlombok:lombok:1.18.24'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     testCompileOnly 'org.projectlombok:lombok:1.18.24'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    implementation group: 'com.ibm.icu', name: 'icu4j', version: '70.1'
+
+    testImplementation 'io.qameta.allure:allure-selenide:2.19.0'
 }
 
 test {
