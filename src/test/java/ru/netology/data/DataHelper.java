@@ -92,9 +92,9 @@ public class DataHelper {
             int month = 0;
 
             if (year == generateCurrentYear()) {
-                month = faker.number().numberBetween(generateCurrentMonth(), 12);
+                month = generateMonthBelowCurrentYear();
             } else if (year == generateYearMax()) {
-                month = faker.number().numberBetween(1, generateCurrentMonth());
+                month = generateMonthOverYearMax();
             } else {
                 month = faker.number().numberBetween(1, 12);
             }
