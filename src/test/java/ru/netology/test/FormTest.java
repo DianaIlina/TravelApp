@@ -126,7 +126,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue(DataHelper.GenerateData.getApprovedNumber());
         $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonthBelowCurrentYear()));
+                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
         $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
                 .setValue(String.valueOf(DataHelper.GenerateData.generateCurrentYear()));
         $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
@@ -148,7 +148,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue(DataHelper.GenerateData.getApprovedNumber());
         $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonthOverYearMax()));
+                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
         $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
                 .setValue(String.valueOf(DataHelper.GenerateData.generateYearMax()));
         $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
@@ -314,7 +314,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue(DataHelper.GenerateData.getApprovedNumber());
         $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonthBelowCurrentYear()));
+                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
         $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
                 .setValue(String.valueOf(DataHelper.GenerateData.generateCurrentYear()));
         $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
@@ -336,7 +336,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue(DataHelper.GenerateData.getApprovedNumber());
         $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonthOverYearMax()));
+                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
         $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
                 .setValue(String.valueOf(DataHelper.GenerateData.generateYearMax()));
         $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
