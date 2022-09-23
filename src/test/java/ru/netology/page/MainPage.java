@@ -3,16 +3,16 @@ package ru.netology.page;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class MainPage {
-    public static FormPage ButtonBuy() {
+    public FormToBuy ButtonBuy() {
         $x("//button//span[normalize-space(text())='Купить']")
                 .click();
-        return new FormPage();
+        return new FormToBuy();
     }
 
-    public static FormPage ButtonCredit() {
+    public FormToCredit ButtonCredit() {
         $x("//button//span[normalize-space(text())='Купить в кредит']")
                 .click();
-        return new FormPage();
+        return new FormToCredit();
     }
 
 }

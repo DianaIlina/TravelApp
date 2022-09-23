@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.page.FormPage;
+import ru.netology.page.FormToCredit;
 import ru.netology.page.MainPage;
 
 import java.time.Duration;
@@ -43,7 +43,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue(DataHelper.GenerateData.getApprovedNumber());
 
-        FormPage.formPage();
+        FormToCredit.formPage();
 
         $x("//*/div[contains(text(), 'Успешно')]")
                 .should(visible, Duration.ofSeconds(20));
@@ -55,7 +55,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue(DataHelper.GenerateData.getApprovedNumber());
 
-        FormPage.formPage();
+        FormToCredit.formPage();
 
         $x("//*/div[contains(text(), 'Успешно')]")
                 .should(visible, Duration.ofSeconds(20));
@@ -67,7 +67,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue(DataHelper.GenerateData.getDeclinedNumber());
 
-        FormPage.formPage();
+        FormToCredit.formPage();
 
         $x("//*/div[contains(text(), 'Ошибка')]")
                 .should(visible, Duration.ofSeconds(20));
@@ -79,7 +79,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue(DataHelper.GenerateData.getDeclinedNumber());
 
-        FormPage.formPage();
+        FormToCredit.formPage();
 
         $x("//*/div[contains(text(), 'Ошибка')]")
                 .should(visible, Duration.ofSeconds(20));
@@ -91,7 +91,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue("4444 4444 4444 4444");
 
-        FormPage.formPage();
+        FormToCredit.formPage();
 
         $x("//*/div[contains(text(), 'Ошибка')]")
                 .should(visible, Duration.ofSeconds(20));
@@ -279,7 +279,7 @@ public class FormTest {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue("4444 4444 4444 4444");
 
-        FormPage.formPage();
+        FormToCredit.formPage();
 
         $x("//*/div[contains(text(), 'Ошибка')]")
                 .should(visible, Duration.ofSeconds(20));

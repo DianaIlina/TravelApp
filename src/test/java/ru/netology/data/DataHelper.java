@@ -62,8 +62,7 @@ public class DataHelper {
         }
 
         public int generateYear() {
-            int maxYear = generateCurrentYear() + 5;
-            int year = faker.number().numberBetween(generateCurrentYear(),maxYear);
+            int year = faker.number().numberBetween(generateCurrentYear(),generateYearMax());
             return year;
         }
 
@@ -92,23 +91,13 @@ public class DataHelper {
             int month = 0;
 
             if (year == generateCurrentYear()) {
-                month = generateMonthBelowCurrentYear();
-            } else if (year == generateYearMax()) {
-                month = generateMonthOverYearMax();
+                month = generateCurrentMonth() - 1;
+            } else if (year == generateCurrentYear() + 5) {
+                month = generateCurrentMonth() + 1;
             } else {
                 month = faker.number().numberBetween(1, 12);
             }
             return month;
-        }
-
-        public int generateMonthBelowCurrentYear() {
-            int monthBelow = generateCurrentMonth() - 1;
-            return monthBelow;
-        }
-
-        public int generateMonthOverYearMax() {
-            int monthOver = generateCurrentMonth() + 1;
-            return monthOver;
         }
     }
 }
