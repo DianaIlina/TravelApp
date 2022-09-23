@@ -1,5 +1,12 @@
 version: '3.7'
 services:
+
+  node-app:
+    build: .
+    image: node-app:1.0
+    ports:
+      - '9999:9999'
+
   mysql:
     image: mysql:latest
     ports:
@@ -11,5 +18,18 @@ services:
       MYSQL_DATABASE: app
       MYSQL_USER: app
       MYSQL_PASSWORD: pass
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data:/var/lib/postgres
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: pass
     cap_add:
       - SYS_NICE  # CAP_SYS_NICE
