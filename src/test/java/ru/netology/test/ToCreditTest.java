@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.page.FormToCredit;
 import ru.netology.page.MainPage;
 
 import java.time.Duration;
@@ -17,7 +16,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
-public class FormTest {
+public class ToCreditTest {
 
     @BeforeAll
     static void setUpAll() {
@@ -35,20 +34,6 @@ public class FormTest {
         SelenideLogger.removeListener("allure");
     }
 
-
-
-    @Test
-    void shouldUseApprovedCardToBuy() {
-        MainPage.ButtonBuy();
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getApprovedNumber());
-
-        FormToCredit.formPage();
-
-        $x("//*/div[contains(text(), 'Успешно')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
     @Test
     void shouldUseApprovedCardToCredit() {
         MainPage.ButtonCredit();
@@ -62,18 +47,6 @@ public class FormTest {
     }
 
     @Test
-    void shouldUseDeclinedCardToBuy() {
-        MainPage.ButtonBuy();
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getDeclinedNumber());
-
-        FormToCredit.formPage();
-
-        $x("//*/div[contains(text(), 'Ошибка')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
     void shouldUseDeclinedCardToCredit() {
         MainPage.ButtonCredit();
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
@@ -82,194 +55,6 @@ public class FormTest {
         FormToCredit.formPage();
 
         $x("//*/div[contains(text(), 'Ошибка')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
-    void shouldUseWrongCardNumberToBuy() {
-        MainPage.ButtonBuy();
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue("4444 4444 4444 4444");
-
-        FormToCredit.formPage();
-
-        $x("//*/div[contains(text(), 'Ошибка')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
-    void shouldCheckValidationMonthToBuy() {
-        MainPage.ButtonBuy();
-
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getApprovedNumber());
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue("1");
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
-                .setValue(String.valueOf(DataHelper.GenerateData.generateYear()));
-        $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateHolder());
-        $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateCode());
-
-        $x("//form/fieldset//button").click();
-
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span" +
-                "[contains(text(), 'Неверный формат')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
-    void shouldCheckValidationMonthBelowToBuy() {
-        MainPage.ButtonBuy();
-
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getApprovedNumber());
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
-                .setValue(String.valueOf(DataHelper.GenerateData.generateCurrentYear()));
-        $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateHolder());
-        $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateCode());
-
-        $x("//form/fieldset//button").click();
-
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span" +
-                "[contains(text(), 'Неверно указан срок действия карты')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
-    void shouldCheckValidationMonthOverToBuy() {
-        MainPage.ButtonBuy();
-
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getApprovedNumber());
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
-                .setValue(String.valueOf(DataHelper.GenerateData.generateYearMax()));
-        $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateHolder());
-        $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateCode());
-
-        $x("//form/fieldset//button").click();
-
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span" +
-                "[contains(text(), 'Неверно указан срок действия карты')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
-    void shouldCheckValidationYearToBuy() {
-        MainPage.ButtonBuy();
-
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getApprovedNumber());
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
-                .setValue("2");
-        $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateHolder());
-        $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateCode());
-
-        $x("//form/fieldset//button").click();
-
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span" +
-                "[contains(text(), 'Неверный формат')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
-    void shouldCheckValidationYearBelowToBuy() {
-        MainPage.ButtonBuy();
-
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getApprovedNumber());
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
-                .setValue(String.valueOf(DataHelper.GenerateData.generateYearBelow()));
-        $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateHolder());
-        $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateCode());
-
-        $x("//form/fieldset//button").click();
-
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span" +
-                "[contains(text(), 'Истёк срок действия карты')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
-    void shouldCheckValidationYearOverToBuy() {
-        MainPage.ButtonBuy();
-
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getApprovedNumber());
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
-                .setValue(String.valueOf(DataHelper.GenerateData.generateYearOver()));
-        $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateHolder());
-        $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateCode());
-
-        $x("//form/fieldset//button").click();
-
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span" +
-                "[contains(text(), 'Неверно указан срок действия карты')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
-    void shouldCheckValidationHolderToBuy() {
-        MainPage.ButtonBuy();
-
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getApprovedNumber());
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
-                .setValue(String.valueOf(DataHelper.GenerateData.generateYear()));
-        $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateHolderRus());
-        $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateCode());
-
-        $x("//form/fieldset//button").click();
-
-        $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span" +
-                "[contains(text(), 'Неверный формат')]")
-                .should(visible, Duration.ofSeconds(20));
-    }
-
-    @Test
-    void shouldCheckValidationCodeToBuy() {
-        MainPage.ButtonBuy();
-
-        $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
-                .setValue(DataHelper.GenerateData.getApprovedNumber());
-        $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
-        $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
-                .setValue(String.valueOf(DataHelper.GenerateData.generateYear()));
-        $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateHolder());
-        $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span/input")
-                .setValue("53");
-
-        $x("//form/fieldset//button").click();
-
-        $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span" +
-                "[contains(text(), 'Неверный формат')]")
                 .should(visible, Duration.ofSeconds(20));
     }
 
