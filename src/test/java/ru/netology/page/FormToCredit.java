@@ -1,3 +1,5 @@
+package ru.netology.page;
+
 import ru.netology.data.DataHelper;
 
 import java.time.Duration;

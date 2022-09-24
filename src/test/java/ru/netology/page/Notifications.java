@@ -17,4 +17,5 @@ public class Notifications {
     public void checkNotificationFail() { //plus card bad validation
         $x("//*/div[contains(text(), 'Ошибка')]")
                 .should(visible, Duration.ofSeconds(20));
+    }
 }

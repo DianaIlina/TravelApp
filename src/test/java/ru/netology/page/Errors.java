@@ -27,13 +27,13 @@ public class Errors {
                 .should(visible, Duration.ofSeconds(20));
     }
 
-    public void checkErrorBelowYear() {
+    public void checkErrorYearBelow() {
         $x("//form/fieldset//span[contains(text(), 'Год')]/../span" +
                 "[contains(text(), 'Истёк срок действия карты')]")
                 .should(visible, Duration.ofSeconds(20));
     }
 
-    public void checkErrorOverYear() {
+    public void checkErrorYearOver() {
         $x("//form/fieldset//span[contains(text(), 'Год')]/../span" +
                 "[contains(text(), 'Неверно указан срок действия карты')]")
                 .should(visible, Duration.ofSeconds(20));

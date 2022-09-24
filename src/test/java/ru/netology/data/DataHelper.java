@@ -33,6 +33,11 @@ public class DataHelper {
             return number;
         }
 
+        public String getWrongNumber() {
+            String number = "4444 4444 4444 4443";
+            return number;
+        }
+
         public String generateHolderRus() {
             String firstname = faker.name().firstName();
             String lastname = faker.name().lastName();
