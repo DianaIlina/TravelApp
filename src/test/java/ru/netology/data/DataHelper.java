@@ -6,6 +6,7 @@ import lombok.Value;
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class DataHelper {
@@ -57,52 +58,46 @@ public class DataHelper {
         }
 
         public String generateCode() {
-            String code = String.format("%03d", faker.number().numberBetween(1, 999));
-            return code;
+            return String.format("%03d", faker.number().numberBetween(1, 999));
         }
 
-        public int generateCurrentYear() {
-            int currentYear = LocalDate.now().getYear() % 100;
-            return currentYear;
+        public Calendar generateDate(int months, int years) {
+            Calendar date = Calendar.getInstance();
+            date.add(Calendar.MONTH, months);
+            date.add(Calendar.YEAR, years);
+
+            return date;
         }
 
-        public int generateYear() {
-            int year = faker.number().numberBetween(generateCurrentYear(),generateYearMax());
-            return year;
+        public Calendar generateValidDate() {
+            return generateDate(faker.number().numberBetween(0, 60), 0);
         }
 
-        public int generateYearBelow() {
-            int yearBelow = generateCurrentYear() - 1;
-            return yearBelow;
+        public Calendar generateMonthBelow() {
+            return generateDate(-1, 0);
         }
 
-        public int generateYearMax() {
-            int yearMax = generateCurrentYear() + 5;
-            return yearMax;
+        public Calendar generateMonthOver() {
+            return generateDate(61, 0);
         }
 
-        public int generateYearOver() {
-            int yearOver = generateCurrentYear() + 6;
-            return yearOver;
+        public Calendar generateYearBelow() {
+            return generateDate(0, faker.number().numberBetween(-5, -1));
         }
 
-        public int generateCurrentMonth() {
-            int currentMonth = LocalDate.now().getMonthValue();
-            return currentMonth;
+        public Calendar generateYearOver() {
+            return generateDate(0, faker.number().numberBetween(6, 10));
         }
 
-        public int generateMonth() {
-            int year = DataHelper.GenerateData.generateYear();
-            int month = 0;
+        public String getMonthFromDate(Calendar date) {
+            int month = date.get(Calendar.MONTH) + 1;
+            return String.format("%02d", month);
+        }
 
-            if (year == generateCurrentYear()) {
-                month = generateCurrentMonth() - 1;
-            } else if (year == generateCurrentYear() + 5) {
-                month = generateCurrentMonth() + 1;
-            } else {
-                month = faker.number().numberBetween(1, 12);
-            }
-            return month;
+        public String getYearFromDate(Calendar date) {
+            int year = date.get(Calendar.YEAR);
+            year = year % 100;
+            return String.format("%02d", year);
         }
     }
 }

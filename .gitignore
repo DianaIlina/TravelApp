@@ -7,6 +7,7 @@ target
 HELP.md
 .gradle
 build/
+data
 
 ### STS ###
 .apt_generated

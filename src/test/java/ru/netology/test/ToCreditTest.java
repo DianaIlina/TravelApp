@@ -12,6 +12,8 @@ import ru.netology.page.Errors;
 import ru.netology.page.MainPage;
 import ru.netology.page.Notifications;
 
+import java.util.Calendar;
+
 import static com.codeborne.selenide.Selenide.open;
 
 public class ToCreditTest {
@@ -37,9 +39,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateValidDate();
+
         String card = DataHelper.GenerateData.getApprovedNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = DataHelper.GenerateData.generateYear();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolder();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -52,9 +56,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateValidDate();
+
         String card = DataHelper.GenerateData.getDeclinedNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = DataHelper.GenerateData.generateYear();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolder();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -67,9 +73,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateValidDate();
+
         String card = DataHelper.GenerateData.getWrongNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = DataHelper.GenerateData.generateYear();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolder();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -82,9 +90,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateValidDate();
+
         String card = DataHelper.GenerateData.getApprovedNumber();
-        int month = 1;
-        int year = DataHelper.GenerateData.generateYear();
+        String month = "3";
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolder();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -97,9 +107,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateMonthBelow();
+
         String card = DataHelper.GenerateData.getApprovedNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = DataHelper.GenerateData.generateCurrentYear();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolder();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -112,9 +124,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateMonthOver();
+
         String card = DataHelper.GenerateData.getApprovedNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = DataHelper.GenerateData.generateYearMax();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolder();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -127,9 +141,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateValidDate();
+
         String card = DataHelper.GenerateData.getApprovedNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = 2;
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = "1";
         String holder = DataHelper.GenerateData.generateHolder();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -142,9 +158,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateYearBelow();
+
         String card = DataHelper.GenerateData.getApprovedNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = DataHelper.GenerateData.generateYearBelow();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolder();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -157,9 +175,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateYearOver();
+
         String card = DataHelper.GenerateData.getApprovedNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = DataHelper.GenerateData.generateYearOver();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolder();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -172,9 +192,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateValidDate();
+
         String card = DataHelper.GenerateData.getApprovedNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = DataHelper.GenerateData.generateCurrentYear();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolderRus();
         String code = DataHelper.GenerateData.generateCode();
 
@@ -187,9 +209,11 @@ public class ToCreditTest {
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
+        Calendar date = DataHelper.GenerateData.generateValidDate();
+
         String card = DataHelper.GenerateData.getApprovedNumber();
-        int month = DataHelper.GenerateData.generateMonth();
-        int year = DataHelper.GenerateData.generateCurrentYear();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
         String holder = DataHelper.GenerateData.generateHolder();
         String code = "63";
 

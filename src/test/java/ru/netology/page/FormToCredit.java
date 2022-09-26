@@ -8,17 +8,17 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class FormToCredit {
-    public void fill(String card, int month, int year, String holder, String code) {
+    public void fill(String card, String month, String year, String holder, String code) {
         $x("//form/fieldset//span[contains(text(), 'Номер карты')]/../span/input")
                 .setValue(card);
         $x("//form/fieldset//span[contains(text(), 'Месяц')]/../span/input")
-                .setValue(String.format("%02d", DataHelper.GenerateData.generateMonth()));
+                .setValue(month);
         $x("//form/fieldset//span[contains(text(), 'Год')]/../span/input")
-                .setValue(String.valueOf(DataHelper.GenerateData.generateYear()));
+                .setValue(year);
         $x("//form/fieldset//span[contains(text(), 'Владелец')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateHolder());
+                .setValue(holder);
         $x("//form/fieldset//span[contains(text(), 'CVC/CVV')]/../span/input")
-                .setValue(DataHelper.GenerateData.generateCode());
+                .setValue(code);
 
         $x("//form/fieldset//button").click();
     }
