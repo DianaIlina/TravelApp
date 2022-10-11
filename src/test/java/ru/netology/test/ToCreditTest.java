@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
+import ru.netology.data.DatabaseHelper;
 import ru.netology.page.Errors;
 import ru.netology.page.MainPage;
 import ru.netology.page.Notifications;
@@ -15,6 +16,8 @@ import ru.netology.page.Notifications;
 import java.util.Calendar;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ToCreditTest {
 
@@ -36,6 +39,10 @@ public class ToCreditTest {
 
     @Test
     void shouldUseApprovedCardToCredit() {
+        DatabaseHelper dh = new DatabaseHelper();
+        int dbRecordsBefore = dh.findRecords("credit_request_entity", "APPROVED");
+
+
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
@@ -49,10 +56,16 @@ public class ToCreditTest {
 
         formFillToCredit.fill(card, month, year, holder, code);
         Notifications.checkNotificationSuccess();
+
+        int dbRecordsAfter = dh.findRecords("credit_request_entity", "APPROVED");
+        assertEquals(1, dbRecordsAfter-dbRecordsBefore);
     }
 
     @Test
     void shouldUseDeclinedCardToCredit() {
+        DatabaseHelper dh = new DatabaseHelper();
+        int dbRecordsBefore = dh.findRecords("credit_request_entity", "DECLINED");
+
         var mainPage = new MainPage();
         var formFillToCredit = mainPage.ButtonCredit();
 
@@ -66,6 +79,9 @@ public class ToCreditTest {
 
         formFillToCredit.fill(card, month, year, holder, code);
         Notifications.checkNotificationFail();
+
+        int dbRecordsAfter = dh.findRecords("credit_request_entity", "DECLINED");
+        assertEquals(1, dbRecordsAfter-dbRecordsBefore);
     }
 
     @Test

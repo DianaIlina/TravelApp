@@ -1,13 +1,18 @@
 package ru.netology.test;
 
+import org.junit.jupiter.api.Test;
+import ru.netology.data.DatabaseHelper;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
+import ru.netology.data.DatabaseHelper;
 import ru.netology.page.Errors;
 import ru.netology.page.MainPage;
 import ru.netology.page.Notifications;
@@ -15,6 +20,7 @@ import ru.netology.page.Notifications;
 import java.util.Calendar;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ToBuyTest {
 
@@ -36,6 +42,9 @@ public class ToBuyTest {
 
     @Test
     void shouldUseApprovedCardToBuy() {
+        DatabaseHelper dh = new DatabaseHelper();
+        int dbRecordsBefore = dh.findRecords("payment_entity", "APPROVED");
+
         var mainPage = new MainPage();
         var formFillToBuy = mainPage.ButtonBuy();
 
@@ -49,10 +58,16 @@ public class ToBuyTest {
 
         formFillToBuy.fill(card, month, year, holder, code);
         Notifications.checkNotificationSuccess();
+
+        int dbRecordsAfter = dh.findRecords("payment_entity", "APPROVED");
+        assertEquals(1, dbRecordsAfter-dbRecordsBefore);
     }
 
     @Test
     void shouldUseDeclinedCardToBuy() {
+        DatabaseHelper dh = new DatabaseHelper();
+        int dbRecordsBefore = dh.findRecords("payment_entity", "DECLINED");
+
         var mainPage = new MainPage();
         var formFillToBuy = mainPage.ButtonBuy();
 
@@ -66,6 +81,9 @@ public class ToBuyTest {
 
         formFillToBuy.fill(card, month, year, holder, code);
         Notifications.checkNotificationFail();
+
+        int dbRecordsAfter = dh.findRecords("payment_entity", "DECLINED");
+        assertEquals(1, dbRecordsAfter-dbRecordsBefore);
     }
 
     @Test
