@@ -1,10 +1,5 @@
 package ru.netology.page;
 
-import ru.netology.data.DataHelper;
-
-import java.time.Duration;
-
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class FormToCredit {

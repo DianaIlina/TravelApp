@@ -1,7 +1,7 @@
 package ru.netology.test;
 
 import org.junit.jupiter.api.Test;
-import ru.netology.data.DatabaseHelper;
+import ru.netology.dataClasses.DatabaseHelper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,8 +11,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import ru.netology.data.DataHelper;
-import ru.netology.data.DatabaseHelper;
+import ru.netology.dataClasses.DataHelper;
 import ru.netology.page.Errors;
 import ru.netology.page.MainPage;
 import ru.netology.page.Notifications;
@@ -20,7 +19,6 @@ import ru.netology.page.Notifications;
 import java.util.Calendar;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ToBuyTest {
 
@@ -41,7 +39,7 @@ public class ToBuyTest {
     }
 
     @Test
-    void shouldUseApprovedCardToBuy() {
+    void shouldReceiveReplyFromDB() {
         DatabaseHelper dh = new DatabaseHelper();
         int dbRecordsBefore = dh.findRecords("payment_entity", "APPROVED");
 
@@ -61,6 +59,26 @@ public class ToBuyTest {
 
         int dbRecordsAfter = dh.findRecords("payment_entity", "APPROVED");
         assertEquals(1, dbRecordsAfter-dbRecordsBefore);
+    }
+
+    @Test
+    void shouldUseApprovedCardToBuy() {
+        DatabaseHelper dh = new DatabaseHelper();
+        int dbRecordsBefore = dh.findRecords("payment_entity", "APPROVED");
+
+        var mainPage = new MainPage();
+        var formFillToBuy = mainPage.ButtonBuy();
+
+        Calendar date = DataHelper.GenerateData.generateValidDate();
+
+        String card = DataHelper.GenerateData.getApprovedNumber();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
+        String holder = DataHelper.GenerateData.generateHolder();
+        String code = DataHelper.GenerateData.generateCode();
+
+        formFillToBuy.fill(card, month, year, holder, code);
+        Notifications.checkNotificationSuccess();
     }
 
     @Test

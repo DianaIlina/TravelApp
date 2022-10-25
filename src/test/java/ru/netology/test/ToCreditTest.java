@@ -7,8 +7,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.netology.data.DataHelper;
-import ru.netology.data.DatabaseHelper;
+import ru.netology.dataClasses.DataHelper;
+import ru.netology.dataClasses.DatabaseHelper;
 import ru.netology.page.Errors;
 import ru.netology.page.MainPage;
 import ru.netology.page.Notifications;
@@ -17,7 +17,6 @@ import java.util.Calendar;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ToCreditTest {
 
@@ -35,6 +34,30 @@ public class ToCreditTest {
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
+    }
+
+    @Test
+    void shouldReceiveReplyFromDB() {
+        DatabaseHelper dh = new DatabaseHelper();
+        int dbRecordsBefore = dh.findRecords("credit_request_entity", "APPROVED");
+
+
+        var mainPage = new MainPage();
+        var formFillToCredit = mainPage.ButtonCredit();
+
+        Calendar date = DataHelper.GenerateData.generateValidDate();
+
+        String card = DataHelper.GenerateData.getApprovedNumber();
+        String month = DataHelper.GenerateData.getMonthFromDate(date);
+        String year = DataHelper.GenerateData.getYearFromDate(date);
+        String holder = DataHelper.GenerateData.generateHolder();
+        String code = DataHelper.GenerateData.generateCode();
+
+        formFillToCredit.fill(card, month, year, holder, code);
+        Notifications.checkNotificationSuccess();
+
+        int dbRecordsAfter = dh.findRecords("credit_request_entity", "APPROVED");
+        assertEquals(1, dbRecordsAfter-dbRecordsBefore);
     }
 
     @Test
@@ -56,9 +79,6 @@ public class ToCreditTest {
 
         formFillToCredit.fill(card, month, year, holder, code);
         Notifications.checkNotificationSuccess();
-
-        int dbRecordsAfter = dh.findRecords("credit_request_entity", "APPROVED");
-        assertEquals(1, dbRecordsAfter-dbRecordsBefore);
     }
 
     @Test

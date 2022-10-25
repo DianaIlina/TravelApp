@@ -1,11 +1,10 @@
-package ru.netology.data;
+package ru.netology.dataClasses;
 
 import com.github.javafaker.Faker;
 import com.ibm.icu.text.Transliterator;
 import lombok.Value;
 import lombok.experimental.UtilityClass;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Locale;
 
